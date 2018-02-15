@@ -8,11 +8,11 @@ void signal_handler(int signo)
         printf("Recieved Sigint");
 }
 
-int main()
+int main(void)
 {
     if(signal(SIGINT, signal_handler)== SIG_ERR)
         printf("can't catch SIGINT");
-    while(1)
+    while(5)
     {
         sleep(1);
         
