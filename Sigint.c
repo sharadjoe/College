@@ -17,3 +17,11 @@ int main(void)
     sleep(1);
   return 0;
 }
+intf("can't catch SIGINT");
+    while(5)
+    {
+        sleep(1);
+        
+    }
+    return 0;
+}
