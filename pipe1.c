@@ -16,8 +16,9 @@ if(p==0){
 	close(pipe1[1]);
 	close(pipe2[0]);
 	printf("Writing hi from child process\n");
-	write(pipe2[1],"hi\n",3);
+	write(pipe2[1],"hi",3);
 	read(pipe1[0],buff,sizeof(buff));
+	printf("Child process read %s\n", buff);
 	close(pipe1[0]);	
 	close(pipe2[1]);
 }
@@ -26,13 +27,14 @@ else{
 	close(pipe1[0]);
 	close(pipe2[1]);
 	printf("Writing hello world from parent process\n");
-	write(pipe1[1],"hello world\n",12);
+	write(pipe1[1],"hello world",12);
 	read(pipe2[0],buff2,sizeof(buff2));
+	printf("Parent process read %s\n",buff2);
 	close(pipe1[1]);
 	close(pipe2[0]);
 }
-printf("Parent process read %s\n",buff);
-printf("Child process read %s\n", buff2);
+
+
 }
 
 
