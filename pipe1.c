@@ -5,22 +5,34 @@
 
 void main()
 {
-int pipefd[2],n,n1,p1,p2;
-char buff[100];
-pipe(pipefd);
-p1=fork();
-if(p1==0){
+int pipe1[2],pipe2[2],p;
+char buff[100],buff2[100];
+pipe(pipe1);
+pipe(pipe2);
+p=fork();
+
+if(p==0){
 	printf("This is child process\n");
-	close(pipefd[1]);
-	n = read(pipefd[0],buff,sizeof(buff));
-	printf("Child process read %s", buff);
+	close(pipe1[1]);
+	close(pipe2[0]);
+	printf("Writing hi from child process\n");
+	write(pipe2[1],"hi\n",3);
+	read(pipe1[0],buff,sizeof(buff));
+	close(pipe1[0]);	
+	close(pipe2[1]);
 }
 else{
 	printf("This is parent process\n");
-	close(pipefd[0]);
-	printf("Writing hello world to parent process\n");
-	write(pipefd[1],"hello world\n",12);
+	close(pipe1[0]);
+	close(pipe2[1]);
+	printf("Writing hello world from parent process\n");
+	write(pipe1[1],"hello world\n",12);
+	read(pipe2[0],buff2,sizeof(buff2));
+	close(pipe1[1]);
+	close(pipe2[0]);
 }
+printf("Parent process read %s\n",buff);
+printf("Child process read %s\n", buff2);
 }
 
 
