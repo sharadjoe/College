@@ -12,9 +12,9 @@ pipe(pipe2);
 p=fork();
 
 if(p==0){
-	printf("This is child process\n");
 	close(pipe1[1]);
 	close(pipe2[0]);
+	sleep(4);
 	printf("Enter input from child process : ");
 	scanf("%s", a2);
 	printf("Writing %s from child process\n",a2);
@@ -25,7 +25,6 @@ if(p==0){
 	close(pipe2[1]);
 }
 else{
-	printf("This is parent process\n");
 	close(pipe1[0]);
 	close(pipe2[1]);
 	printf("Enter input from parent process : ");
